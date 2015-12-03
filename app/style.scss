@@ -1,3 +1,30 @@
+@font-face {
+  font-family: cormorantSemiItalic;
+  src: url(assets/fonts/Cormorant-SemiItalic.otf);
+}
+
+@font-face {
+  font-family: cormorantLight;
+  src: url(assets/fonts/Cormorant-Light.otf);
+}
+
+@font-face {
+  font-family: cormorantRegular;
+  src: url(assets/fonts/Cormorant-Regular.otf);
+}
+
+@font-face {
+  font-family: cormorantRegularItalic;
+  src: url(assets/fonts/Cormorant-RegularItalic.otf);
+}
+
+@font-face {
+  font-family: cormorantInfantRegular;
+  src: url(assets/fonts/CormorantInfant-Regular.otf);
+}
+
+$color-text-dark: #231C26;
+
 html {
   background: url(assets/images/background.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
@@ -6,9 +33,22 @@ html {
   background-size: cover;
 }
 
+h1 {
+  font-family: cormorantRegular;
+  font-size: 3em;
+  color: $color-text-dark
+}
+
+span {
+  font-family: cormorantRegular;
+  font-size: 1.5em;
+  color: $color-text-dark
+}
+
 #content {
   background-color: rgba(255, 255, 255, .8);
   margin: 30px;
   border-radius: 20px;
   padding: 20px;
+  text-align: center;
 }

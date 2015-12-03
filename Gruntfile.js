@@ -32,6 +32,16 @@ module.exports = function(grunt) {
         }
       }
     },
+    copy: {
+      main: {
+        expand: true,
+        cwd: 'app/assets/fonts/',
+        src: '**',
+        dest: 'dist/assets/fonts/',
+        flatten: true,
+        filter: 'isFile',
+      },
+    },
     open: {
       file : {
         path : 'index.html'
@@ -46,7 +56,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-image');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('default', ['elm', 'sass', 'image', 'open', 'watch']);
+  grunt.registerTask('default', ['elm', 'sass', 'image', 'copy', 'open', 'watch']);
 
 };
