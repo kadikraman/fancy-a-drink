@@ -28,7 +28,8 @@ module.exports = function(grunt) {
     image: {
       static: {
         files: {
-          'dist/assets/images/background.jpg': 'app/assets/images/background.jpg'
+          'dist/assets/images/background.jpg': 'app/assets/images/background.jpg',
+          'dist/assets/images/question.svg': 'app/assets/images/question.svg'
         }
       }
     },
