@@ -24,6 +24,9 @@
 }
 
 $color-text-dark: #231C26;
+$color-text-dark-blue: #236167;
+$color-text-light-blue: #68979B;
+
 
 html {
   background: url(assets/images/background.jpg) no-repeat center center fixed; 
@@ -33,16 +36,17 @@ html {
   background-size: cover;
 }
 
-h1 {
+h1, span, ul {
   font-family: cormorantRegular;
-  font-size: 3em;
   color: $color-text-dark
 }
 
+h1 {
+  font-size: 3em;
+}
+
 span {
-  font-family: cormorantRegular;
   font-size: 1.5em;
-  color: $color-text-dark
 }
 
 #content {
@@ -51,4 +55,24 @@ span {
   border-radius: 20px;
   padding: 20px;
   text-align: center;
+}
+
+.mood-list {
+  list-style: none;
+  padding-left: 0;
+  padding-top: 30px;
+
+  li {
+    display: inline;
+    padding: 10px;
+    margin: 0 10px;
+    color: $color-text-dark-blue;
+    text-transform: uppercase;
+
+    &:hover {
+      text-decoration: underline;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
 }
