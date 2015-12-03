@@ -25,6 +25,13 @@ module.exports = function(grunt) {
         }
       }
     },
+    image: {
+      static: {
+        files: {
+          'dist/assets/images/background.jpg': 'app/assets/images/background.jpg'
+        }
+      }
+    },
     open: {
       file : {
         path : 'index.html'
@@ -38,7 +45,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-elm');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-open');
+  grunt.loadNpmTasks('grunt-image');
 
-  grunt.registerTask('default', ['elm', 'sass', 'open', 'watch']);
+  grunt.registerTask('default', ['elm', 'sass', 'image', 'open', 'watch']);
 
 };

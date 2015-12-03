@@ -1,5 +1,9 @@
-import Html exposing (text, h1)
+import Html exposing (..)
+import Html.Attributes exposing (..)
 
 
 main =
-  h1 [ ] [ text "Hello world!" ]
+  div [ id "content" ]
+    [
+      h1 [ ] [ text "Hello world!" ]
+    ]
