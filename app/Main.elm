@@ -2,6 +2,16 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 
+
+-- VALUES
+
+moodList = [ "amused", "bewildered", "dirty", "high" ]
+
+
+
+
+
+
 -- MODEL
 type alias Model =
   {
@@ -17,10 +27,13 @@ initialModel =
   }
 
 
+
+
+
+
 -- UPDATE
 
 type Action = NoOp | NewMood String
-
 
 update : Action -> Model -> Model
 update action model =
@@ -32,19 +45,31 @@ update action model =
 
 
 
+
+
+
+
 -- VIEW
 
-moodList = [ "amused", "bewildered", "dirty", "high" ]
-
+renderDrink : Signal.Address Action -> Model -> Html
 renderDrink address model =
   div [ class "drink" ]
     [ div [ class "divider" ] [],
       img [ src "dist/assets/images/question.svg" ] []
     ]
 
+renderMood : Signal.Address Action -> Model -> String -> Html
+renderMood address model mood =
+  let
+    classes = (if model.mood == mood then "selected" else "")
+  in
+    li [ onClick address (NewMood mood), class classes ]
+      [ text mood ]
+
+renderMoodList : Signal.Address Action -> Model -> Html
 renderMoodList address model =
   let
-    items = List.map (\mood -> li [ onClick address (NewMood mood) ] [ text mood ] ) moodList
+    items = List.map (renderMood address model) moodList
   in
     ul [ class "mood-list" ] items
 
@@ -58,6 +83,10 @@ view address model =
       renderMoodList address model,
       renderDrink address model
     ]
+
+
+
+
 
 
 -- SIGNALS

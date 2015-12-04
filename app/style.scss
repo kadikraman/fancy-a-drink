@@ -69,7 +69,7 @@ span {
     color: $color-text-dark-blue;
     text-transform: uppercase;
 
-    &:hover {
+    &:hover, &.selected{
       text-decoration: underline;
       font-weight: bold;
       cursor: pointer;
