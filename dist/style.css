@@ -1,0 +1,62 @@
+@font-face {
+  font-family: cormorantSemiItalic;
+  src: url(assets/fonts/Cormorant-SemiItalic.otf); }
+@font-face {
+  font-family: cormorantLight;
+  src: url(assets/fonts/Cormorant-Light.otf); }
+@font-face {
+  font-family: cormorantRegular;
+  src: url(assets/fonts/Cormorant-Regular.otf); }
+@font-face {
+  font-family: cormorantRegularItalic;
+  src: url(assets/fonts/Cormorant-RegularItalic.otf); }
+@font-face {
+  font-family: cormorantInfantRegular;
+  src: url(assets/fonts/CormorantInfant-Regular.otf); }
+html {
+  background: url(assets/images/background.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+
+h1, span, ul {
+  font-family: cormorantRegular;
+  color: #231C26; }
+
+h1 {
+  font-size: 3em; }
+
+span {
+  font-size: 1.5em; }
+
+#content {
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 30px;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center; }
+
+.mood-list {
+  list-style: none;
+  padding-left: 0;
+  padding-top: 30px; }
+  .mood-list li {
+    display: inline;
+    padding: 10px;
+    margin: 0 10px;
+    color: #236167;
+    text-transform: uppercase; }
+    .mood-list li:hover {
+      text-decoration: underline;
+      font-weight: bold;
+      cursor: pointer; }
+
+.drink .divider {
+  width: 300px;
+  height: 1px;
+  background-color: #231C26;
+  margin-left: auto;
+  margin-right: auto; }
+
+/*# sourceMappingURL=style.css.map */
