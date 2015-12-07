@@ -29,6 +29,11 @@ module.exports = function(grunt) {
       static: {
         files: {
           'dist/assets/images/background.jpg': 'app/assets/images/background.jpg',
+          'dist/assets/images/fancy.jpg': 'app/assets/images/fancy.jpg',
+          'dist/assets/images/amused.jpg': 'app/assets/images/amused.jpg',
+          'dist/assets/images/dirty.jpg': 'app/assets/images/dirty.jpg',
+          'dist/assets/images/high.jpg': 'app/assets/images/high.jpg',
+          'dist/assets/images/bewildered.jpg': 'app/assets/images/bewildered.jpg',
           'dist/assets/images/question.svg': 'app/assets/images/question.svg'
         }
       }

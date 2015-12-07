@@ -5,8 +5,54 @@ import Html.Events exposing (..)
 
 -- VALUES
 
-moodList = [ "amused", "bewildered", "dirty", "high" ]
+type alias MoodItem =
+  {
+    mood: String,
+    drink: String,
+    image: String,
+    description: String
+  }
 
+
+moodList = [
+  {
+    mood = "amused",
+    drink = "Something Layered",
+    image = "amused.jpg",
+    description = "It's layers all the way down!"
+  },
+  {
+    mood = "fancy",
+    drink = "Saffron Gin and Tonic",
+    image = "fancy.jpg",
+    description = "Feeling fancy, are you?"
+  },
+  {
+    mood = "bewildered",
+    drink = "TBA",
+    image = "bewildered.jpg",
+    description = "TBA"
+  },
+  {
+    mood = "dirty",
+    drink = "",
+    image = "dirty.jpg",
+    description = "TBA"
+  },
+  {
+    mood = "high",
+    drink = "",
+    image = "high.jpg",
+    description = "TBA"
+  }]
+
+defaultMood =
+  {
+    mood = "question",
+    drink = "",
+    image = "question.svg",
+    description = ""
+  }
 
 
 
@@ -51,20 +97,26 @@ update action model =
 
 -- VIEW
 
-renderDrink : Signal.Address Action -> Model -> Html
-renderDrink address model =
-  div [ class "drink" ]
-    [ div [ class "divider" ] [],
-      img [ src "dist/assets/images/question.svg" ] []
-    ]
-
-renderMood : Signal.Address Action -> Model -> String -> Html
-renderMood address model mood =
+renderDrink : Model -> Html
+renderDrink model =
   let
-    classes = (if model.mood == mood then "selected" else "")
+    record = moodList
+      |> List.filter (\ item -> item.mood == model.mood )
+      |> List.head
+      |> Maybe.withDefault defaultMood
   in
-    li [ onClick address (NewMood mood), class classes ]
-      [ text mood ]
+    div [ class "drink" ]
+      [ div [ class "divider" ] [],
+        img [ src ("dist/assets/images/" ++ record.image ) ] []
+      ]
+
+renderMood : Signal.Address Action -> Model -> MoodItem -> Html
+renderMood address model moodItem =
+  let
+    classes = (if model.mood == moodItem.mood then "selected" else "")
+  in
+    li [ onClick address (NewMood moodItem.mood), class classes ]
+      [ text moodItem.mood ]
 
 renderMoodList : Signal.Address Action -> Model -> Html
 renderMoodList address model =
@@ -78,10 +130,9 @@ view address model =
   div [ id "content" ]
     [
       h1 [ ] [ text "Fancy a drink?" ],
-      h2 [ ] [ text model.mood ],
       span [ class "intro"] [ text "Drinks based on your mood. Just select your mood and receive a drink recommendation just for you." ],
       renderMoodList address model,
-      renderDrink address model
+      renderDrink model
     ]
 
 
