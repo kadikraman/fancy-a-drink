@@ -1,6 +1,7 @@
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Drinks as Drinks
 
 
 -- VALUES
@@ -14,37 +15,7 @@ type alias MoodItem =
   }
 
 
-moodList = [
-  {
-    mood = "amused",
-    drink = "Something Layered",
-    image = "amused.jpg",
-    description = "It's layers all the way down!"
-  },
-  {
-    mood = "fancy",
-    drink = "Saffron Gin and Tonic",
-    image = "fancy.jpg",
-    description = "Feeling fancy, are you?"
-  },
-  {
-    mood = "bewildered",
-    drink = "TBA",
-    image = "bewildered.jpg",
-    description = "TBA"
-  },
-  {
-    mood = "dirty",
-    drink = "",
-    image = "dirty.jpg",
-    description = "TBA"
-  },
-  {
-    mood = "high",
-    drink = "",
-    image = "high.jpg",
-    description = "TBA"
-  }]
+moodList = Drinks.moodList
 
 defaultMood =
   {
@@ -107,7 +78,9 @@ renderDrink model =
   in
     div [ class "drink" ]
       [ div [ class "divider" ] [],
-        img [ src ("dist/assets/images/" ++ record.image ) ] []
+        h2 [ class "drink-name" ] [ text record.drink ],
+        img [ src ("dist/assets/images/" ++ record.image ) ] [],
+        p [] [ text record.description ]
       ]
 
 renderMood : Signal.Address Action -> Model -> MoodItem -> Html

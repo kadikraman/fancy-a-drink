@@ -36,7 +36,7 @@ html {
   background-size: cover;
 }
 
-h1, span, ul {
+h1, h2, span, ul, p {
   font-family: cormorantRegular;
   color: $color-text-dark
 }
@@ -78,11 +78,25 @@ span {
 }
 
 .drink {
+
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  
   .divider {
     width: 300px;
     height: 1px;
     background-color: $color-text-dark;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  img {
+    padding: 10px;
+    height: 300px;
+  }
+
+  h2 {
+    text-decoration: underline;
   }
 }

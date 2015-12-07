@@ -10,7 +10,7 @@ module.exports = function(grunt) {
     },
     watch: {
       elm: {
-        files: ['app/Main.elm'],
+        files: ['app/*'],
         tasks: ['elm']
       },
       sass: {
@@ -34,6 +34,7 @@ module.exports = function(grunt) {
           'dist/assets/images/dirty.jpg': 'app/assets/images/dirty.jpg',
           'dist/assets/images/high.jpg': 'app/assets/images/high.jpg',
           'dist/assets/images/bewildered.jpg': 'app/assets/images/bewildered.jpg',
+          'dist/assets/images/crazy.jpg': 'app/assets/images/crazy.jpg',
           'dist/assets/images/question.svg': 'app/assets/images/question.svg'
         }
       }
