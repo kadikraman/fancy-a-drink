@@ -10286,6 +10286,36 @@ Elm.Html.Events.make = function (_elm) {
                                     ,keyCode: keyCode
                                     ,Options: Options};
 };
+Elm.Drinks = Elm.Drinks || {};
+Elm.Drinks.make = function (_elm) {
+   "use strict";
+   _elm.Drinks = _elm.Drinks || {};
+   if (_elm.Drinks.values) return _elm.Drinks.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var moodList = _U.list([{mood: "amused",drink: "Something... ANYTHING Layered",image: "amused.jpg",description: "It\'s layers all the way down!"}
+                          ,{mood: "fancy",drink: "Saffron Gin and Tonic",image: "fancy.jpg",description: "Also known as the fancypants cocktail."}
+                          ,{mood: "bewildered",drink: "Tequila?",image: "bewildered.jpg",description: "Tequila! Mixer optional."}
+                          ,{mood: "dirty"
+                           ,drink: "Absinthe"
+                           ,image: "dirty.jpg"
+                           ,description: "Preferably something off the special Absinthe list. Try not to set fire to anything important."}
+                          ,{mood: "high"
+                           ,drink: "Cocktail on the roof"
+                           ,image: "high.jpg"
+                           ,description: "The drink doesn\'t matter. Find a high place, obtain a beverage, enjoy the view."}
+                          ,{mood: "crazy"
+                           ,drink: "Brewmeister Snake Venom"
+                           ,image: "crazy.jpg"
+                           ,description: "Snake Venom from Scotland (where else) with a 67.5% ABV is guaranteed to get you... somewhere interesting!"}]);
+   return _elm.Drinks.values = {_op: _op,moodList: moodList};
+};
 Elm.Main = Elm.Main || {};
 Elm.Main.make = function (_elm) {
    "use strict";
@@ -10294,6 +10324,7 @@ Elm.Main.make = function (_elm) {
    var _U = Elm.Native.Utils.make(_elm),
    $Basics = Elm.Basics.make(_elm),
    $Debug = Elm.Debug.make(_elm),
+   $Drinks = Elm.Drinks.make(_elm),
    $Html = Elm.Html.make(_elm),
    $Html$Attributes = Elm.Html.Attributes.make(_elm),
    $Html$Events = Elm.Html.Events.make(_elm),
@@ -10324,17 +10355,15 @@ Elm.Main.make = function (_elm) {
    var model = A3($Signal.foldp,update,initialModel,actions);
    var Model = F2(function (a,b) {    return {mood: a,description: b};});
    var defaultMood = {mood: "question",drink: "",image: "question.svg",description: ""};
-   var moodList = _U.list([{mood: "amused",drink: "Something Layered",image: "amused.jpg",description: "It\'s layers all the way down!"}
-                          ,{mood: "fancy",drink: "Saffron Gin and Tonic",image: "fancy.jpg",description: "Feeling fancy, are you?"}
-                          ,{mood: "bewildered",drink: "TBA",image: "bewildered.jpg",description: "TBA"}
-                          ,{mood: "dirty",drink: "",image: "dirty.jpg",description: "TBA"}
-                          ,{mood: "high",drink: "",image: "high.jpg",description: "TBA"}]);
+   var moodList = $Drinks.moodList;
    var renderDrink = function (model) {
       var record = A2($Maybe.withDefault,defaultMood,$List.head(A2($List.filter,function (item) {    return _U.eq(item.mood,model.mood);},moodList)));
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("drink")]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("divider")]),_U.list([]))
-              ,A2($Html.img,_U.list([$Html$Attributes.src(A2($Basics._op["++"],"dist/assets/images/",record.image))]),_U.list([]))]));
+              ,A2($Html.h2,_U.list([$Html$Attributes.$class("drink-name")]),_U.list([$Html.text(record.drink)]))
+              ,A2($Html.img,_U.list([$Html$Attributes.src(A2($Basics._op["++"],"dist/assets/images/",record.image))]),_U.list([]))
+              ,A2($Html.p,_U.list([]),_U.list([$Html.text(record.description)]))]));
    };
    var renderMoodList = F2(function (address,model) {
       var items = A2($List.map,A2(renderMood,address,model),moodList);
