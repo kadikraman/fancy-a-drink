@@ -10220,6 +10220,72 @@ Elm.Html.Attributes.make = function (_elm) {
                                         ,property: property
                                         ,attribute: attribute};
 };
+Elm.Html = Elm.Html || {};
+Elm.Html.Events = Elm.Html.Events || {};
+Elm.Html.Events.make = function (_elm) {
+   "use strict";
+   _elm.Html = _elm.Html || {};
+   _elm.Html.Events = _elm.Html.Events || {};
+   if (_elm.Html.Events.values) return _elm.Html.Events.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Json$Decode = Elm.Json.Decode.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $VirtualDom = Elm.VirtualDom.make(_elm);
+   var _op = {};
+   var keyCode = A2($Json$Decode._op[":="],"keyCode",$Json$Decode.$int);
+   var targetChecked = A2($Json$Decode.at,_U.list(["target","checked"]),$Json$Decode.bool);
+   var targetValue = A2($Json$Decode.at,_U.list(["target","value"]),$Json$Decode.string);
+   var defaultOptions = $VirtualDom.defaultOptions;
+   var Options = F2(function (a,b) {    return {stopPropagation: a,preventDefault: b};});
+   var onWithOptions = $VirtualDom.onWithOptions;
+   var on = $VirtualDom.on;
+   var messageOn = F3(function (name,addr,msg) {    return A3(on,name,$Json$Decode.value,function (_p0) {    return A2($Signal.message,addr,msg);});});
+   var onClick = messageOn("click");
+   var onDoubleClick = messageOn("dblclick");
+   var onMouseMove = messageOn("mousemove");
+   var onMouseDown = messageOn("mousedown");
+   var onMouseUp = messageOn("mouseup");
+   var onMouseEnter = messageOn("mouseenter");
+   var onMouseLeave = messageOn("mouseleave");
+   var onMouseOver = messageOn("mouseover");
+   var onMouseOut = messageOn("mouseout");
+   var onBlur = messageOn("blur");
+   var onFocus = messageOn("focus");
+   var onSubmit = messageOn("submit");
+   var onKey = F3(function (name,addr,handler) {    return A3(on,name,keyCode,function (code) {    return A2($Signal.message,addr,handler(code));});});
+   var onKeyUp = onKey("keyup");
+   var onKeyDown = onKey("keydown");
+   var onKeyPress = onKey("keypress");
+   return _elm.Html.Events.values = {_op: _op
+                                    ,onBlur: onBlur
+                                    ,onFocus: onFocus
+                                    ,onSubmit: onSubmit
+                                    ,onKeyUp: onKeyUp
+                                    ,onKeyDown: onKeyDown
+                                    ,onKeyPress: onKeyPress
+                                    ,onClick: onClick
+                                    ,onDoubleClick: onDoubleClick
+                                    ,onMouseMove: onMouseMove
+                                    ,onMouseDown: onMouseDown
+                                    ,onMouseUp: onMouseUp
+                                    ,onMouseEnter: onMouseEnter
+                                    ,onMouseLeave: onMouseLeave
+                                    ,onMouseOver: onMouseOver
+                                    ,onMouseOut: onMouseOut
+                                    ,on: on
+                                    ,onWithOptions: onWithOptions
+                                    ,defaultOptions: defaultOptions
+                                    ,targetValue: targetValue
+                                    ,targetChecked: targetChecked
+                                    ,keyCode: keyCode
+                                    ,Options: Options};
+};
 Elm.Main = Elm.Main || {};
 Elm.Main.make = function (_elm) {
    "use strict";
@@ -10230,27 +10296,77 @@ Elm.Main.make = function (_elm) {
    $Debug = Elm.Debug.make(_elm),
    $Html = Elm.Html.make(_elm),
    $Html$Attributes = Elm.Html.Attributes.make(_elm),
+   $Html$Events = Elm.Html.Events.make(_elm),
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm);
    var _op = {};
-   var renderDrink = A2($Html.div,
-   _U.list([$Html$Attributes.$class("drink")]),
-   _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("divider")]),_U.list([]))
-           ,A2($Html.img,_U.list([$Html$Attributes.src("dist/assets/images/question.svg")]),_U.list([]))]));
-   var moodList = _U.list(["Amused","Bewildered","Dirty","High"]);
-   var renderMoodList = function () {
-      var items = A2($List.map,function (mood) {    return A2($Html.li,_U.list([]),_U.list([$Html.text(mood)]));},moodList);
+   var update = F2(function (action,model) {
+      var _p0 = action;
+      if (_p0.ctor === "NoOp") {
+            return model;
+         } else {
+            return _U.update(model,{mood: _p0._0});
+         }
+   });
+   var NewMood = function (a) {    return {ctor: "NewMood",_0: a};};
+   var renderMood = F3(function (address,model,moodItem) {
+      var classes = _U.eq(model.mood,moodItem.mood) ? "selected" : "";
+      return A2($Html.li,
+      _U.list([A2($Html$Events.onClick,address,NewMood(moodItem.mood)),$Html$Attributes.$class(classes)]),
+      _U.list([$Html.text(moodItem.mood)]));
+   });
+   var NoOp = {ctor: "NoOp"};
+   var inbox = $Signal.mailbox(NoOp);
+   var actions = inbox.signal;
+   var initialModel = {mood: "question",description: "What will you have?"};
+   var model = A3($Signal.foldp,update,initialModel,actions);
+   var Model = F2(function (a,b) {    return {mood: a,description: b};});
+   var defaultMood = {mood: "question",drink: "",image: "question.svg",description: ""};
+   var moodList = _U.list([{mood: "amused",drink: "Something Layered",image: "amused.jpg",description: "It\'s layers all the way down!"}
+                          ,{mood: "fancy",drink: "Saffron Gin and Tonic",image: "fancy.jpg",description: "Feeling fancy, are you?"}
+                          ,{mood: "bewildered",drink: "TBA",image: "bewildered.jpg",description: "TBA"}
+                          ,{mood: "dirty",drink: "",image: "dirty.jpg",description: "TBA"}
+                          ,{mood: "high",drink: "",image: "high.jpg",description: "TBA"}]);
+   var renderDrink = function (model) {
+      var record = A2($Maybe.withDefault,defaultMood,$List.head(A2($List.filter,function (item) {    return _U.eq(item.mood,model.mood);},moodList)));
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("drink")]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("divider")]),_U.list([]))
+              ,A2($Html.img,_U.list([$Html$Attributes.src(A2($Basics._op["++"],"dist/assets/images/",record.image))]),_U.list([]))]));
+   };
+   var renderMoodList = F2(function (address,model) {
+      var items = A2($List.map,A2(renderMood,address,model),moodList);
       return A2($Html.ul,_U.list([$Html$Attributes.$class("mood-list")]),items);
-   }();
-   var main = A2($Html.div,
-   _U.list([$Html$Attributes.id("content")]),
-   _U.list([A2($Html.h1,_U.list([]),_U.list([$Html.text("Fancy a drink?")]))
-           ,A2($Html.span,
-           _U.list([$Html$Attributes.$class("intro")]),
-           _U.list([$Html.text("Drinks based on your mood. Just select your mood and receive a drink recommendation just for you.")]))
-           ,renderMoodList
-           ,renderDrink]));
-   return _elm.Main.values = {_op: _op,moodList: moodList,renderDrink: renderDrink,renderMoodList: renderMoodList,main: main};
+   });
+   var view = F2(function (address,model) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.id("content")]),
+      _U.list([A2($Html.h1,_U.list([]),_U.list([$Html.text("Fancy a drink?")]))
+              ,A2($Html.span,
+              _U.list([$Html$Attributes.$class("intro")]),
+              _U.list([$Html.text("Drinks based on your mood. Just select your mood and receive a drink recommendation just for you.")]))
+              ,A2(renderMoodList,address,model)
+              ,renderDrink(model)]));
+   });
+   var main = A2($Signal.map,view(inbox.address),model);
+   var MoodItem = F4(function (a,b,c,d) {    return {mood: a,drink: b,image: c,description: d};});
+   return _elm.Main.values = {_op: _op
+                             ,MoodItem: MoodItem
+                             ,moodList: moodList
+                             ,defaultMood: defaultMood
+                             ,Model: Model
+                             ,initialModel: initialModel
+                             ,NoOp: NoOp
+                             ,NewMood: NewMood
+                             ,update: update
+                             ,renderDrink: renderDrink
+                             ,renderMood: renderMood
+                             ,renderMoodList: renderMoodList
+                             ,view: view
+                             ,inbox: inbox
+                             ,actions: actions
+                             ,model: model
+                             ,main: main};
 };

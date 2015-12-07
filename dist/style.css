@@ -47,7 +47,7 @@ span {
     margin: 0 10px;
     color: #236167;
     text-transform: uppercase; }
-    .mood-list li:hover {
+    .mood-list li:hover, .mood-list li.selected {
       text-decoration: underline;
       font-weight: bold;
       cursor: pointer; }
